@@ -33,8 +33,26 @@ router.get('/', async (req, res) => {
 
 router.get('/:foodId', async (req, res) => {
     try {
-        const food = await Food.findById(req.params.foodId).populate('author')
+        const food = await Food.findById(req.params.foodId).populate('author') // comments.author ???
         res.status(200).json(food)
+    } catch (error) {
+        res.status(500).json(error)
+    }
+})
+
+router.put('/:foodId', async (req, res) => {
+    try {
+        const food = await Food.findById(req.params.foodId)
+        if (!food.author.equals(req.user._id)) {
+            return res.status(403).send('You are not allowed to do that!')
+        }
+        const updatedFood = await Food.findByIdAndUpdate(
+            req.params.foodId,
+            req.body,
+            { new: true }
+        )
+        updatedFood._doc.author = req.user
+        res.status(200).json(updatedFood)
     } catch (error) {
         res.status(500).json(error)
     }
