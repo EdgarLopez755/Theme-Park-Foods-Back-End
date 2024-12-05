@@ -99,6 +99,18 @@ router.put('/:foodId/comments/:commentId', async (req, res) => {
 })
 
 
+router.delete('/:foodId/comments/:commentId', async (req, res) => {
+    try {
+        const food = await Food.findById(req.params.foodId)
+        food.comments.remove({ _id: req.params.commentId })
+        await food.save()
+        res.status(200).json({ message: 'Ok' })
+    } catch (error) {
+        res.status(500).json(error)
+    }
+})
+
+
 // ========= Protected Routes =========
 
 
