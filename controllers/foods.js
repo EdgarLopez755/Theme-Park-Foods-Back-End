@@ -72,6 +72,31 @@ router.delete('/:foodId', async (req, res) => {
 })
 
 
+router.post('/:foodId/comments', async (req, res) => {
+    try {
+        req.body.auhtor = req.user._id
+        const food = await Food.findById(req.params.foodId)
+        food.comments.push(req.body)
+        await food.save()
+        const newComment = food.comments[food.comments.length - 1]
+        newComment._doc.author = req.user
+        res.status(201).json(newComment)
+    } catch (error) {
+        res.status(500).json(error)
+    }
+})
+
+router.put('/:foodId/comments/:commentId', async (req, res) => {
+    try {
+        const food = await Food.findById(req.params.foodId)
+        const comment = food.comments.id(req.params.commentId)
+        comment.text = req.body.text
+        await food.save()
+        res.status(200).json({ message: 'Ok' })
+    } catch (error) {
+        res.status(500).json(error)
+    }
+})
 
 
 // ========= Protected Routes =========
