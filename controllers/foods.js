@@ -58,6 +58,20 @@ router.put('/:foodId', async (req, res) => {
 })
 
 
+router.delete('/:foodId', async (req, res) => {
+    try {
+        const food = await Food.findById(req.params.foodId)
+        if (!food.author.equals(req.user._id)) {
+            return res.status(403).send('You are not allowed to do that.')
+        }
+        const deletedFood = await Food.findByIdAndDelete(req.params.foodId)
+        res.status(200).json(deletedFood)
+    } catch (error) {
+        res.status(500).json(error)
+    }
+})
+
+
 
 
 // ========= Protected Routes =========
