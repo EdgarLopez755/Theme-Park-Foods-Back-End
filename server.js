@@ -27,7 +27,7 @@ app.use('/test-jwt', testJWTRouter)
 app.use('/users', usersRouter)
 app.use('/profiles', profilesRouter)
 app.use('/foods', foodsRouter)
-
-app.listen(3000, () => {
+const PORT= process.env.PORT || 3000
+app.listen(PORT, () => {
   console.log('The express app is ready!');
 });
