@@ -14,6 +14,7 @@ const commentSchema = new mongoose.Schema(
 
 const foodSchema = new mongoose.Schema(
     {
+        
         name: {
             type: String,
             require: true
