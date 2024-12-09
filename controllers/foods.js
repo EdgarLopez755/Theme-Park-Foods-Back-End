@@ -33,7 +33,7 @@ router.get('/', async (req, res) => {
 
 router.get('/:foodId', async (req, res) => {
     try {
-        const food = await Food.findById(req.params.foodId).populate([ 'author', 'comments.author'])
+        const food = await Food.findById(req.params.foodId).populate([ 'author', 'comments.author',])
         res.status(200).json(food) 
     } catch (error) {
         res.status(500).json(error)
@@ -43,7 +43,7 @@ router.get('/:foodId', async (req, res) => {
 router.put('/:foodId', async (req, res) => {
     try {
         const food = await Food.findById(req.params.foodId)
-        if (!food.author.equals(req.user._id)) {   // check for ._id
+        if (!food.author.equals(req.user._id)) {   
             return res.status(403).send('You are not allowed to do that!')
         }
         const updatedFood = await Food.findByIdAndUpdate(
@@ -62,7 +62,7 @@ router.put('/:foodId', async (req, res) => {
 router.delete('/:foodId', async (req, res) => {
     try {
         const food = await Food.findById(req.params.foodId)
-        if (!food.author.equals(req.user._id)) {     // check for ._id
+        if (!food.author.equals(req.user._id)) {   
             return res.status(403).send('You are not allowed to do that.')
         }
         const deletedFood = await Food.findByIdAndDelete(req.params.foodId)

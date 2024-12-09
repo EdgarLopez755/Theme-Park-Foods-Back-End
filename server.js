@@ -21,12 +21,13 @@ app.use(express.json());
 
 
 
-// Routes go here
+
 
 app.use('/test-jwt', testJWTRouter)
 app.use('/users', usersRouter)
 app.use('/profiles', profilesRouter)
 app.use('/foods', foodsRouter)
+
 const PORT= process.env.PORT || 3000
 app.listen(PORT, () => {
   console.log('The express app is ready!');
