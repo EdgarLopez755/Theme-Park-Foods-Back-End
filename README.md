@@ -50,8 +50,6 @@ MVP Requirements
 Atrributions
 - Nodemon
 - dotenv
-- React
-- Express
 - Mongoose
 - CRUD
 
