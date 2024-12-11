@@ -55,7 +55,6 @@ Atrributions
 
 
 Technologies used 
-- React
-- CSS
 - Javascript
 - Express
+- React
